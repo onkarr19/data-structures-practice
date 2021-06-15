@@ -68,17 +68,57 @@ void insertAtUnsortedStart(int a[], size_t size, size_t *n, int num) {
 }
 
 
+// Sorted, Time Complexity -> O(n)
+void deleteAtSorted(int a[], size_t *n, int pos) {
+	if (pos > 0 && pos < *n) {
+		for (int i = pos; i < *n; ++i)
+		{
+			a[i-1] = a[i];
+		}
+		--*n;
+	}
+}
+
+
+// Sorted, Time Complexity -> O(n)
+void deleteAtSortedStart(int a[], size_t *n) {
+	for (int i = 0; i < *n; ++i)
+	{
+		a[i] = a[i+1];
+	}
+	--*n;
+}
+
+
+// Sorted, Time Complexity -> O(1)
+void deleteAtSortedEnd(int a[], size_t *n) {
+	--*n;
+}
+
+
+// Unsorted, Time Complexity -> O(1)
+void deleteAtUnsortedStart(int a[], size_t *n) {
+	a[0] = a[*n-1];
+	--*n;
+}
+
+
+// Unsorted, Time Complexity -> O(1)
+void deleteAtUnsorted(int a[], size_t *n, int pos) {
+	a[pos-1] = a[*n-1];
+	--*n;
+}
+
+
 int main() {
-	int arr[10];
-	size_t n = 8, size = size(arr);
+	int arr[20];
+	size_t n = 9, size = size(arr);
 	for (int i = 0; i < n; ++i) arr[i] = i+2;
 	
 	traverse(arr, n);
-	insertAtUnsorted(arr, size, &n, 77,2);
+	deleteAtUnsorted(arr, &n, 2);
+
+
 	traverse(arr, n);
-
-	
-	
-
 	return 0;
 }
