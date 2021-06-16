@@ -3,6 +3,7 @@ using namespace std;
 #define size(array) (sizeof(array)/sizeof(array[0]))
 
 
+// Traversal
 // Time Complexity -> O(n)
 void traverse(int  a[], size_t n) {
 	for (int i = 0; i<n; ++i) cout << i[a] << " ";
@@ -10,6 +11,7 @@ void traverse(int  a[], size_t n) {
 }
 
 
+// Insertion
 // Sorted, Time Complexity -> O(n)
 void insertAtSorted(int a[], size_t size, size_t *n, int num, int pos) {
 	if (pos < 0) cout << "array Underflow\n";
@@ -62,6 +64,7 @@ void insertAtUnsortedStart(int a[], size_t size, size_t *n, int num) {
 }
 
 
+// Deletion
 // Sorted, Time Complexity -> O(n)
 void deleteAtSorted(int a[], size_t *n, int pos) {
 	if (pos > 0 && pos < *n) {
@@ -104,6 +107,7 @@ void deleteAtUnsorted(int a[], size_t *n, int pos) {
 }
 
 
+// Search
 // Unsorted Search, Time Complexity -> O(n)
 int linearSearch(int a[], size_t n, int num) {
 	for (int i = 0; i < n; ++i)
