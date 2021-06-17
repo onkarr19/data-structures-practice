@@ -7,7 +7,8 @@ struct Node{
 	Node * next;
 };
 
-Node * head = NULL;
+// Node * head = NULL;
+
 
 // Traversal
 // Time Complexity -> O(n)
@@ -23,34 +24,21 @@ void traverse(Node *s) {
 
 // Insertion
 // At beginning, Time Complexity -> O(1)
-Node * Spush(Node *s, int p) {
-	Node *ptr = s;
+Node * push(Node *s, int p) {
 	Node *temp = new Node();
 	temp->data = p;
-	temp->next = ptr;
+	temp->next = s;
 	s = temp;
 	return s;
 }
 
 
 // At beginning, Time Complexity -> O(1)
-void push(Node *top, int val) {
+void prepend(Node **ptr, int k) {
 	struct Node* temp = new Node();
-	temp->data = val;
-	temp->next = head;
-	head = temp;
-}
-
-
-// Top most element, Time Complexity -> O(1)
-int pop(Node *) {
-	if (head == NULL) return -1;
-	struct Node* temp = new Node();
-	temp = head;
-	int val = head->data;
-	head = head->next;
-	free(temp);
-	return val;
+	temp->data = k;
+	temp->next = *ptr;
+	*ptr = temp;
 }
 
 
@@ -81,28 +69,48 @@ void insert(Node *s, int p, int pos) {
 	ptr->next = temp;
 }
 
-int main() {
-	// Node * head = new Node();
-	// head = NULL;
 
-	push(head, 6);
-	push(head, 3);
-	push(head, 7);
-	push(head, 9);
-	push(head, 21);
+// Delete top-most element, Time Complexity -> O(1)
+int pop(Node * s) {
+	if (s == NULL) return -1;
+	Node* temp = new Node();
+	temp = s;
+	int val = s->data;
+	s->next = temp->next->next;
+	// free(temp);
+	return val;
+}
+
+
+int main() {
+	Node * head = new Node();
+	head = NULL;
+
+	int n,x;
+	cin >> n;
+	for (int i = 0; i < 5; ++i)
+	{
+		cin >> x;
+		head = push(head, x);
+	}
+	// traverse(head);
+	// insert(head, 30,1);
+	// traverse(head);
+	// append(head, 500);
+	// traverse(head);
+	// head = push(head, 233);
+	// head = push(head,430);
 	traverse(head);
 
 	cout << pop(head) << endl;
 	cout << pop(head) << endl;
 	cout << pop(head) << endl;
-	cout << pop(head) << endl;
-	cout << pop(head) << endl;
-	cout << pop(head) << endl;
+	// cout << pop(head) << endl;
+	// cout << pop(head) << endl;
+	// cout << pop(head) << endl;
 
 
 
-
-
-	// traverse(head);
+	//traverse(head);
 	return 0;
 }
