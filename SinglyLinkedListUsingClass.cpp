@@ -130,6 +130,20 @@ public:
 		return -1;
 	}
 
+	void reverse() {
+		Node *prev, *current, *ptr;
+		prev = NULL;
+		current = ptr = head;
+
+		while(ptr!=NULL) {
+			ptr = ptr->next;
+			current->next = prev;
+			prev = current;
+			current = ptr;
+		}
+		head = prev;
+	}
+
 	~LinkedList() {
 		Node* ptr = head;
 		while( ptr != NULL ) {
@@ -161,6 +175,7 @@ int main() {
 	// head.deleteAtIndex(9);
 	// debug();
 	// put(head.search(33));
+	head.reverse();
 
 
 	head.print();

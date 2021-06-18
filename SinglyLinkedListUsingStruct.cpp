@@ -116,6 +116,20 @@ struct Node {
 		return -1;
 	}
 
+	void reverse() {
+		Node *prev, *current, *ptr;
+		prev = NULL;
+		current = ptr = head;
+
+		while(ptr!=NULL) {
+			ptr = ptr->next;
+			current->next = prev;
+			prev = current;
+			current = ptr;
+		}
+		head = prev;
+	}
+
 	void destruct() {
 		Node* ptr = head;
 		while( ptr != NULL ) {
@@ -141,7 +155,7 @@ int main() {
 	head->append(23);
 	// head->print();
 	head->insert(12,-10);
-	head->insert(43,10);
+	head->insert(53,10);
 	// (*head).print();
 
 	head->insertAfterValue(87, 2);
@@ -149,6 +163,9 @@ int main() {
 	// head->deleteAtEnd();
 	// put(head->search());
 	head->deleteAtIndex(head->search(15));
+	head->print();
+
+	head->reverse();
 	head->print();
 
 
