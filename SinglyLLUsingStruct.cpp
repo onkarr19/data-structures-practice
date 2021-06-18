@@ -34,11 +34,11 @@ Node * push(Node *s, int p) {
 
 
 // At beginning, Time Complexity -> O(1)
-void prepend(Node **ptr, int k) {
-	struct Node* temp = new Node();
+void prepend(Node *s, int k) {
+	Node * temp = new Node();
 	temp->data = k;
-	temp->next = *ptr;
-	*ptr = temp;
+	temp->next = s;
+	s = temp;
 }
 
 
@@ -101,16 +101,17 @@ int main() {
 	// head = push(head, 233);
 	// head = push(head,430);
 	traverse(head);
+	prepend(head,32);
 
-	cout << pop(head) << endl;
-	cout << pop(head) << endl;
-	cout << pop(head) << endl;
+	// cout << pop(head) << endl;
+	// cout << pop(head) << endl;
+	// cout << pop(head) << endl;
 	// cout << pop(head) << endl;
 	// cout << pop(head) << endl;
 	// cout << pop(head) << endl;
 
 
 
-	//traverse(head);
+	traverse(head);
 	return 0;
 }

@@ -62,7 +62,7 @@ public:
 		ptr->next=temp;
 	}
 
-	void insertAfterNode(int val, int key) {
+	void insertAfterValue(int val, int key) {
 		Node* temp = new Node();
 		temp->data = val;
 
@@ -153,13 +153,14 @@ int main() {
 
 	head.print();
 	head.insert(21, 1);
+	head.insertAfterValue(44, 21);
 	head.print();
-	head.insertAfterNode(44, 21);
-	head.print();
+	head.deleteAtEnd();
+	// head.print();
 
 	// head.deleteAtIndex(9);
 	// debug();
-	put(head.search(33));
+	// put(head.search(33));
 
 
 	head.print();
