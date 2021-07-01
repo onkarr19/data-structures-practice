@@ -1,13 +1,10 @@
 #include <iostream>
 #include <math.h>
+#include <string>
 using namespace std;
 #define println(a) cout << a << "\n";
 #define print(a) cout << a;
 
-int precedenceOf(char);
-bool isOperator(char);
-string infixToPostfix(string);
-int evalPostfix(string);
 
 template <class T>
 class Node{
@@ -17,6 +14,7 @@ public:
 
 	Node(){next=NULL;}
 };
+
 /*
 template <class T>
 struct Node{
@@ -78,9 +76,20 @@ public:
 	}
 };
 
+int eval(int a, int b, char c) {
+	switch(c) {
+		case '+': return (a+b);
+		case '-': return (a-b);
+		case '*': return (a*b);
+		case '/': return (a/b);
+		case '^': return (pow(a,b));
+	}
+}
+
 
 int precedenceOf(char c) {
-	if (c=='^') return 3;
+	if (c=='^') return 4;
+	// if (c=='(' ||c==')') return 3;
 	if (c=='*' ||c=='/') return 2;
 	if (c=='+' || c=='-') return 1;
 	return -1;
@@ -131,16 +140,9 @@ int evalPostfix(string s) {
 		c = s[i];
 		if (c==' ') continue;
 		if (isOperator(c)) {
-			b = stack.pop();
 			a = stack.pop();
-			print(a); print(c); println(b);
-			switch(c) {
-				case '+': stack.push(a+b); break;
-				case '-': stack.push(a-b); break;
-				case '*': stack.push(a*b); break;
-				case '/': stack.push(a/b); break;
-				case '^': stack.push(pow(a,b)); break;
-			}
+			b = stack.pop();
+			stack.push(eval(b,a,c));
 		} else {
 			int num=0;
 			while(isdigit(s[i])) { 
@@ -155,11 +157,80 @@ int evalPostfix(string s) {
 }
 
 
+string infixToPrefix(string s) {
+	s = string(s.rbegin(), s.rend());
+	char c;
+	string ans;
+	Stack<char>stack;
+	for (int i = 0; s[i]; ++i) {
+		c = s[i];
+		if (c==' ') continue;
+		else if (c==')') {
+			stack.push(c);
+		}
+		else if (c=='(') {
+			while (stack.top()!=')') {
+				ans += stack.pop();
+			} stack.pop();
+		} else if (isOperator(c)) {
+			if (stack.top() == ')') {stack.push(c);}
+			else if(stack.isEmpty() || precedenceOf(c) > precedenceOf(stack.top())) {
+				stack.push(c);
+			} else {
+				while (precedenceOf(c) < precedenceOf(stack.top())) {
+					ans += stack.pop();
+				} 
+				stack.push(c);
+			}  
+		} else {ans += c;}
+	}
+
+	while(!stack.isEmpty()) {
+		ans += stack.pop();
+	}
+	return string(ans.rbegin(), ans.rend());
+}
+
+
+int evalPrefix(string s) {
+	Stack<int> stack;
+	int a,b;
+	char c;
+
+	for (int i = s.length(); i <= 0; --i) {
+		c = s[i];
+		if (isOperator(c)) {
+			a = stack.pop();
+			b = stack.pop();
+			stack.push(eval(a,b,c));
+		} else {
+			int num=0;
+			while(isdigit(s[i])) { 
+				num = num * 10 + (s[i] - '0'); 
+				i++; 
+            }
+            i--;
+			stack.push(num);
+		}
+	}
+	return stack.pop();
+}
+
+
 int main() {
-	string exprsn; 
+	string exprsn, s;
 	getline(cin, exprsn);
 	println(exprsn);
-	print(infixToPostfix(exprsn));
-	// println(evalPostfix(exprsn));
+	println("Infix to Prefix:");
+	s = infixToPrefix(exprsn);
+	println(s);
+	// println(evalPrefix(s));
+	
+	println(' ');
+	
+	println("Infix to Postfix:");
+	s = infixToPostfix(exprsn);
+	println(s);
+	// println(evalPostfix(s));
 	return 0;
 }

@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 #define debug() cout << "Working...\n";
-#define get(x) int x; cin >> x;
-#define put(x) cout << x << "\n";
+#define get(x) int x; cin >> (x);
+#define put(x) cout << (x) << "\n";
 
 class Node{
 public:

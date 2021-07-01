@@ -1,14 +1,27 @@
-#include <iostream>
-using namespace std;
+ #include <iostream>
+ using namespace std;
+ #define get(a) int a; cin >> a;
+ #define println(a) cout << a << "\n";
+ #define print(a) cout << a;
+ 
 
+char lostCharNW(string stringSent, string stringRec) {
+	char answer;
 
-int main() {
-	static int a=2,b=4,c=8;
-	static int *arr1[2] = {&a,&b};
-	static int *arr2[2] = {&b,&c};
-	int*(*arr[2])[2] = {&arr1,&arr2};
-	printf("%d %d\n", *(*arr[0])[1], *(*(**(arr+1)+1)));
+	for (int i = 0; stringRec[i]; ++i)
+	{
+		if (stringSent[i]!=stringRec[i])
+		{
+			answer = stringSent[i];
+		}
+	}
 
-
-	return 0;
+	return answer;
 }
+
+ 
+ int main() {
+ 	println(lostCharNW("cshvbhfauh", "cshvbhfauht"));
+ 	
+ 	return 0;
+ }
