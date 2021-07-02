@@ -24,7 +24,7 @@ int isFull(){
     return (temp==NULL);
 }
 
-void enqueue(int k) {
+void enqueueRear(int k) {
     if (isFull()) {
         println("Queue Overflow...");
     } else {
@@ -40,7 +40,23 @@ void enqueue(int k) {
     }
 }
 
-int dequeue() {
+void enqueueFront(int k) {
+    if (isFull()) {
+        println("Queue Overflow...");
+    } else {
+        Node* temp = new Node();
+        temp->data=k;
+        // temp->next=NULL;
+        if (front==NULL){
+            front=rear=temp;
+        } else {
+            temp->next=front;
+            front=temp;
+        }
+    }
+}
+
+int dequeueFront() {
     int k=-1;
     if(isEmpty()) {
         println("Queue is empty");
@@ -50,6 +66,12 @@ int dequeue() {
         front = front->next;
         free(temp);
     }
+    return k;
+}
+
+int dequeueRear() {
+    int k=-1;
+    // Not Possible with Singly LL
     return k;
 }
 
@@ -65,13 +87,14 @@ void display() {
 
 
 int main() {
-    enqueue(4);
-    enqueue(6);
-    enqueue(9);
-    println(dequeue());
-    println(dequeue());
-    println(dequeue());
-    println(dequeue());
+    enqueueRear(4);
+    enqueueRear(6);
+    enqueueRear(9);
+
+    dequeueRear();
+    dequeueRear();
+    dequeueRear();
+    dequeueRear();
 
     display();
 
